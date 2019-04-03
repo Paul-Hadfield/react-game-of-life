@@ -12,8 +12,6 @@ const Grid = ({grid}) => {
 
 function App() {
 
-  console.log('here');
-
   let [grid, setGrid] = React.useState([]);
   if(grid.length == 0)
   {
@@ -31,14 +29,30 @@ function App() {
       if( x > 5){ x = 1; y++; }
     }
   }
-  const determineNewState = (cell) => {
-    return {x: cell.x, y: cell.y, live: cell.live == false};
+  const applyRules = (isLive, liveNeighbours) => {
+    if(isLive) {
+      return (liveNeighbours == 2 | liveNeighbours == 3);
+    } else {
+      return liveNeighbours == 3;
+    }
+  };
+
+  const determineNewState = (cell, currentGrid) => {
+
+    const liveNeighbours = currentGrid
+                        .filter(nc => !(nc.x == cell.x && nc.y == cell.y))
+                        .filter(nc => nc.x >= (cell.x - 1) & nc.x <= (cell.x + 1))
+                        .filter(nc => nc.y >= (cell.y - 1) & nc.y <= (cell.y + 1))
+                        .filter(nc => nc.live)
+                        .length;
+
+    return {x: cell.x, y: cell.y, live: applyRules(cell.live, liveNeighbours)};
   };
 
       React.useEffect(() => {
 
       const timerId = setTimeout(() => {
-        const newGrid = grid.map(cell => determineNewState(cell));
+        const newGrid = grid.map(cell => determineNewState(cell, grid));
         setGrid(newGrid);
       }, 1000);
       return () => clearTimeout(timerId);
