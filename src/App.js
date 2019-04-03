@@ -1,28 +1,40 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+const Grid = ({grid}) => {
+  return (
+    <div className="grid">
+      {grid.map((cell, index) => <div key={index} className="cell" style={{backgroundColor: cell.live ? 'black' : 'white' }}></div>)}
+    </div>
+  ); 
+}
+
+function App() {
+
+  let grid = [];
+  let x = 1;
+  let y = 1;
+  for(let i = 1; i <= 25; i++){
+    let live = false;
+    if(x == 3) {
+      if(y == 2 | y == 3 | y == 4) {
+        live = true;
+      }
+    }
+    grid.push({x, y, live});
+    x++; 
+    if( x > 5){ x = 1; y++; }
   }
+
+  return (
+    <div className="App">
+      <Grid grid={grid} />
+    </div>
+  );
 }
 
 export default App;
+
+const Util = {
+  range: (min, max) => Array.from({length: max - min + 1}, (_, i) => min + i)
+}

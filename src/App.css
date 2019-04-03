@@ -23,11 +23,22 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.grid {
+  margin: 50px auto;
+  width:500px;
+  border: solid 2px;
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
+  grid-template-rows: repeat(5, 100px);
+  grid-gap:0px;
+}
+
+.cell {
+  border: solid 1px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.liveCell {
+  background: black;
 }
