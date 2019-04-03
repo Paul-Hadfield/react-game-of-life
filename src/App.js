@@ -2,6 +2,11 @@ import React from 'react';
 import './App.css';
 
 const Grid = ({grid}) => {
+
+  React.useEffect(() => {
+    setTimeout(() => {console.log('hi');}, 1000);
+  });
+
   return (
     <div className="grid">
       {grid.map((cell, index) => <div key={index} className="cell" style={{backgroundColor: cell.live ? 'black' : 'white' }}></div>)}
