@@ -2,7 +2,8 @@
   "name": "game-of-life",
   "description": "React version of Conway's Game Of Life",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --port 3000"
+    "start": "webpack-dev-server --config webpack.config.dev.js --port 3000",
+    "build:prod": "webpack --env.prod --config webpack.config.js --progress --color"
   },
   "dependencies": {
     "bootstrap": "4.3.1",
