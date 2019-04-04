@@ -1,74 +1,114 @@
 import React from 'react';
 import './App.css';
-
-const Grid = ({grid}) => {
-  
-  return (
-    <div className="grid">
-      {grid.map((cell, index) => <div key={index} className="cell" style={{backgroundColor: cell.live ? 'black' : 'white' }}></div>)}
-    </div>
-  ); 
-}
+import GameEngine  from './gameengine'
+import Grid from './grid'
+import Options from './options'
 
 function App() {
 
+  let [pattern, setPattern] = React.useState('random');
   let [grid, setGrid] = React.useState([]);
+  let [restartKey, setRestartKey] = React.useState(0);
   if(grid.length == 0)
-  {
-    let x = 1;
-    let y = 1;
-    for(let i = 1; i <= 25; i++){
-      let live = false;
-      if(x == 3) {
-        if(y == 2 | y == 3 | y == 4) {
-          live = true;
-        }
-      }
-      grid.push({x, y, live});
-      x++; 
-      if( x > 5){ x = 1; y++; }
+  {    
+    switch(pattern)
+    {
+      case 'blinker':
+        grid = GameEngine.setupBlinker();
+        break;
+      case 'beacon':
+        grid = GameEngine.setupBeacon();
+        break;
+      case 'toad':
+        grid = GameEngine.setupToad();
+        break;
+      case 'pulsar':
+        grid = GameEngine.setupPulsar();
+        break;
+      case 'acorn':
+        grid = GameEngine.setupAcorn();
+        break;
+      case 'diehard':
+        grid = GameEngine.setupDiehard();
+        break;
+        default:
+        grid = GameEngine.setupRandom();
+        break;
     }
+    
   }
-  const applyRules = (isLive, liveNeighbours) => {
-    if(isLive) {
-      return (liveNeighbours == 2 | liveNeighbours == 3);
-    } else {
-      return liveNeighbours == 3;
-    }
-  };
-
-  const determineNewState = (cell, currentGrid) => {
-
-    const liveNeighbours = currentGrid
-                        .filter(nc => !(nc.x == cell.x && nc.y == cell.y))
-                        .filter(nc => nc.x >= (cell.x - 1) & nc.x <= (cell.x + 1))
-                        .filter(nc => nc.y >= (cell.y - 1) & nc.y <= (cell.y + 1))
-                        .filter(nc => nc.live)
-                        .length;
-
-    return {x: cell.x, y: cell.y, live: applyRules(cell.live, liveNeighbours)};
-  };
-
-      React.useEffect(() => {
-
-      const timerId = setTimeout(() => {
-        const newGrid = grid.map(cell => determineNewState(cell, grid));
-        setGrid(newGrid);
-      }, 1000);
-      return () => clearTimeout(timerId);
-      
-    });
   
+  console.log(pattern);
+
+  let rows = 0;
+  let cols = 0;
+
+  grid.forEach(cell => {
+    if(cell.x > cols) { cols = cell.x; }
+    if(cell.y > rows) { rows = cell.y; }
+  })
+
+  const dimensions = {
+    width: window.innerWidth, 
+    height: window.innerHeight,
+    rows, cols
+  };
+  
+ 
+  const getTimeoutPeriod = () => {
+
+    if( grid.length >= 5000)
+    {
+      return 250;
+    }
+    if( grid.length >= 2500) {
+      return 500;
+    }
+
+    if( grid.length >= 500) {
+      return 750;
+    }
+
+    return 1000;
+  }
+
+  const timeoutPeriod = getTimeoutPeriod();
+  
+  React.useEffect(() => {
+
+    const timerId = setTimeout(() => {
+      const newGrid = grid.map(cell => GameEngine.determineNewState(cell, grid));
+      setGrid(newGrid);
+    }, timeoutPeriod);
+    return () => clearTimeout(timerId);
+
+  });
+  
+  const handleTypeChanged = (changeEvent) => {
+    pattern = setPattern(changeEvent.target.value);
+    restartGame();
+  }
+
+  const handleRestartClicked = () => {
+    event.preventDefault();
+    restartGame();
+  }
+
+  const restartGame = () => {
+    setGrid([]);
+    setRestartKey(restartKey+1);
+  }
 
   return (
     <div className="App">
-      <Grid grid={grid} />
+      <Grid key={restartKey} dimensions={dimensions} gameGrid={grid} />
+      <Options 
+        pattern={pattern}
+        typeChanged={handleTypeChanged}
+        restartClick={handleRestartClicked} />
     </div>
   );
 }
 
 export default App;
 
-const Util = {
-  range: (min, max) => Array.from({length: max - min + 1}, (_, i) => min + i)
-}
