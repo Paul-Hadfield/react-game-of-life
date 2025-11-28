@@ -69,8 +69,9 @@ function App() {
 
   useEffect(() => {
     const timeoutPeriod = getTimeoutPeriod(grid);
+    const liveSet = GameEngine.buildLiveSet(grid);
     const timerId = setTimeout(() => {
-      const newGrid = grid.map((cell) => GameEngine.determineNewState(cell, grid));
+      const newGrid = grid.map((cell) => GameEngine.determineNewState(cell, liveSet));
       setGrid(newGrid);
     }, timeoutPeriod);
     return () => clearTimeout(timerId);

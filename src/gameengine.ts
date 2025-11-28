@@ -7,19 +7,24 @@ const applyRules = (isLive: boolean, liveNeighbours: number): boolean => {
   return liveNeighbours === 3;
 };
 
-const excludeSelf = (cell: Cell, currentCell: Cell): boolean =>
-  !(cell.x === currentCell.x && cell.y === currentCell.y);
+const encodeCoord = (x: number, y: number): string => `${x},${y}`;
 
-const isLive = (cell: Cell): boolean => cell.live;
+const offsets = [
+  [-1, -1],
+  [-1, 0],
+  [-1, 1],
+  [0, -1],
+  [0, 1],
+  [1, -1],
+  [1, 0],
+  [1, 1],
+] as const;
 
-const includeNeighbours = (cell: Cell, currentCell: Cell): boolean =>
-  cell.x >= currentCell.x - 1 &&
-  cell.x <= currentCell.x + 1 &&
-  cell.y >= currentCell.y - 1 &&
-  cell.y <= currentCell.y + 1;
+const getNumberOfLiveNeighbours = (cell: Cell, liveSet: Set<string>): number =>
+  offsets.reduce((count, [dx, dy]) => (liveSet.has(encodeCoord(cell.x + dx, cell.y + dy)) ? count + 1 : count), 0);
 
-const getNumberOfLiveNeighbours = (cell: Cell, currentGrid: Cell[]): number =>
-  currentGrid.filter((nc) => excludeSelf(nc, cell)).filter((nc) => includeNeighbours(nc, cell)).filter(isLive).length;
+const buildLiveSet = (currentGrid: Cell[]): Set<string> =>
+  new Set(currentGrid.filter((c) => c.live).map((c) => encodeCoord(c.x, c.y)));
 
 const GameEngine = {
   setupBlinker: (): Cell[] => GridSetup.blinker(),
@@ -30,10 +35,12 @@ const GameEngine = {
   setupAcorn: (): Cell[] => GridSetup.acorn(),
   setupDiehard: (): Cell[] => GridSetup.diehard(),
 
-  determineNewState: (cell: Cell, currentGrid: Cell[]): Cell => ({
+  buildLiveSet,
+
+  determineNewState: (cell: Cell, liveSet: Set<string>): Cell => ({
     x: cell.x,
     y: cell.y,
-    live: applyRules(cell.live, getNumberOfLiveNeighbours(cell, currentGrid)),
+    live: applyRules(cell.live, getNumberOfLiveNeighbours(cell, liveSet)),
   }),
 };
 
