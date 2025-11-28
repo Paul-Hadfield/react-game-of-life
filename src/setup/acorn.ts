@@ -1,7 +1,7 @@
 import type { Cell } from './types';
 import { buildEmptyGrid } from './utils';
 
-const acorn = (): Cell[] => {
+export const acorn = (): Cell[] => {
   const grid = buildEmptyGrid(9, 5);
   grid
     .filter((c) => c.x >= 2 && c.x <= 3 && c.y === 4)
@@ -25,5 +25,3 @@ const acorn = (): Cell[] => {
     });
   return grid;
 };
-
-export default acorn;

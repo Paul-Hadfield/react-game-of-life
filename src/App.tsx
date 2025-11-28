@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState, type ChangeEvent, type MouseEvent } from 'react';
 import './App.css';
-import GameEngine from './gameengine';
-import Grid from './grid';
-import Options from './options';
+import { GameEngine } from './gameengine';
+import { Grid } from './grid';
+import { Options } from './options';
 import type { Cell } from './setup/gridsetup';
 
 type Pattern = 'blinker' | 'beacon' | 'toad' | 'pulsar' | 'acorn' | 'diehard' | 'random';
@@ -40,7 +40,7 @@ const getTimeoutPeriod = (grid: Cell[]): number => {
   return 1000;
 };
 
-function App() {
+export const App = () => {
   const [pattern, setPattern] = useState<Pattern>('random');
   const [grid, setGrid] = useState<Cell[]>(() => initialGridForPattern('random'));
   const [restartKey, setRestartKey] = useState(0);
@@ -93,6 +93,4 @@ function App() {
       <Options pattern={pattern} typeChanged={handleTypeChanged} restartClick={handleRestartClicked} />
     </div>
   );
-}
-
-export default App;
+};

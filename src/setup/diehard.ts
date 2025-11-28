@@ -1,7 +1,7 @@
 import type { Cell } from './types';
 import { buildEmptyGrid } from './utils';
 
-const diehard = (): Cell[] => {
+export const diehard = (): Cell[] => {
   const grid = buildEmptyGrid(10, 5);
   grid
     .filter((c) => c.x >= 7 && c.x <= 9 && c.y === 4)
@@ -25,5 +25,3 @@ const diehard = (): Cell[] => {
     });
   return grid;
 };
-
-export default diehard;

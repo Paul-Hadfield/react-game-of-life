@@ -1,7 +1,7 @@
 import type { Cell } from './types';
 import { buildEmptyGrid } from './utils';
 
-const blinker = (): Cell[] => {
+export const blinker = (): Cell[] => {
   const grid = buildEmptyGrid(5, 5);
   grid
     .filter((c) => c.x >= 2 && c.x <= 4)
@@ -11,5 +11,3 @@ const blinker = (): Cell[] => {
     });
   return grid;
 };
-
-export default blinker;

@@ -1,7 +1,7 @@
 import type { Cell } from './types';
 import { buildEmptyGrid } from './utils';
 
-const toad = (): Cell[] => {
+export const toad = (): Cell[] => {
   const grid = buildEmptyGrid(6, 6);
   grid
     .filter((c) => c.x >= 2 && c.x <= 4)
@@ -17,5 +17,3 @@ const toad = (): Cell[] => {
     });
   return grid;
 };
-
-export default toad;

@@ -1,13 +1,13 @@
-import blinker from './blinker';
-import toad from './toad';
-import beacon from './beacon';
-import pulsar from './pulsar';
-import random from './random';
-import acorn from './acorn';
-import diehard from './diehard';
+import { blinker } from './blinker';
+import { toad } from './toad';
+import { beacon } from './beacon';
+import { pulsar } from './pulsar';
+import { random } from './random';
+import { acorn } from './acorn';
+import { diehard } from './diehard';
 export type { Cell } from './types';
 
-const GridSetup = {
+export const GridSetup = {
   blinker,
   toad,
   beacon,
@@ -17,4 +17,4 @@ const GridSetup = {
   diehard,
 };
 
-export default GridSetup;
+export { blinker, toad, beacon, pulsar, random, acorn, diehard };

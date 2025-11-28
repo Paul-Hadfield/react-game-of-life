@@ -1,7 +1,7 @@
 import type { Cell } from './types';
 import { buildEmptyGrid } from './utils';
 
-const beacon = (): Cell[] => {
+export const beacon = (): Cell[] => {
   const grid = buildEmptyGrid(6, 6);
   grid
     .filter((c) => c.x === 2 || c.x === 3)
@@ -17,5 +17,3 @@ const beacon = (): Cell[] => {
     });
   return grid;
 };
-
-export default beacon;

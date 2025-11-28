@@ -1,7 +1,7 @@
 import type { Cell } from './types';
 import { buildEmptyGrid } from './utils';
 
-const pulsar = (): Cell[] => {
+export const pulsar = (): Cell[] => {
   const grid = buildEmptyGrid(17, 17);
   grid
     .filter((c) => ((c.x >= 5 && c.x <= 7) || (c.x >= 11 && c.x <= 13)) && c.y === 3)
@@ -45,5 +45,3 @@ const pulsar = (): Cell[] => {
     });
   return grid;
 };
-
-export default pulsar;

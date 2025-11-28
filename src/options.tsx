@@ -7,7 +7,7 @@ type Props = {
   restartClick: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Options = ({ pattern, typeChanged, restartClick }: Props) => {
+export const Options = ({ pattern, typeChanged, restartClick }: Props) => {
   return (
     <form>
       <div className="options">
@@ -56,5 +56,3 @@ const Options = ({ pattern, typeChanged, restartClick }: Props) => {
     </form>
   );
 };
-
-export default Options;

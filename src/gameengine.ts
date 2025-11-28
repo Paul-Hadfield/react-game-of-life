@@ -1,4 +1,4 @@
-import GridSetup, { Cell } from './setup/gridsetup';
+import { GridSetup, type Cell } from './setup/gridsetup';
 
 const applyRules = (isLive: boolean, liveNeighbours: number): boolean => {
   if (isLive) {
@@ -26,7 +26,7 @@ const getNumberOfLiveNeighbours = (cell: Cell, liveSet: Set<string>): number =>
 const buildLiveSet = (currentGrid: Cell[]): Set<string> =>
   new Set(currentGrid.filter((c) => c.live).map((c) => encodeCoord(c.x, c.y)));
 
-const GameEngine = {
+export const GameEngine = {
   setupBlinker: (): Cell[] => GridSetup.blinker(),
   setupToad: (): Cell[] => GridSetup.toad(),
   setupBeacon: (): Cell[] => GridSetup.beacon(),
@@ -43,5 +43,3 @@ const GameEngine = {
     live: applyRules(cell.live, getNumberOfLiveNeighbours(cell, liveSet)),
   }),
 };
-
-export default GameEngine;

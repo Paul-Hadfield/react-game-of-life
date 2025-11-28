@@ -1,4 +1,4 @@
-import Cell from './cell';
+import { Cell } from './cell';
 import type { Cell as CellType } from './setup/gridsetup';
 
 type Dimensions = {
@@ -13,7 +13,7 @@ type Props = {
   gameGrid: CellType[];
 };
 
-const Grid = ({ dimensions, gameGrid }: Props) => {
+export const Grid = ({ dimensions, gameGrid }: Props) => {
   const cellSize = Math.floor(
     Math.min(
       ...[
@@ -38,5 +38,3 @@ const Grid = ({ dimensions, gameGrid }: Props) => {
     </div>
   );
 };
-
-export default Grid;
