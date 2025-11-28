@@ -1,4 +1,3 @@
-import React from 'react';
 import Cell from './cell'
 
 // eslint-disable-next-line react/prop-types
