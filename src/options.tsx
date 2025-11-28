@@ -1,7 +1,10 @@
+import type { ChangeEvent, MouseEvent } from 'react';
+import './options.css';
+
 type Props = {
   pattern: string;
-  typeChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  restartClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  typeChanged: (e: ChangeEvent<HTMLInputElement>) => void;
+  restartClick: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Options = ({ pattern, typeChanged, restartClick }: Props) => {
@@ -10,37 +13,37 @@ const Options = ({ pattern, typeChanged, restartClick }: Props) => {
       <div className="options">
         <div>
           <input type="Radio" id="blinker" name="pattern" onChange={typeChanged} value="blinker" checked={pattern === 'blinker'} />
-          <label htmlFor="blinker" selected>
+          <label htmlFor="blinker">
             Blinker
           </label>
         </div>
         <div>
           <input type="Radio" id="toad" name="pattern" onChange={typeChanged} value="toad" checked={pattern === 'toad'} />
-          <label htmlFor="toad" selected>
+          <label htmlFor="toad">
             Toad
           </label>
         </div>
         <div>
           <input type="Radio" id="beacon" name="pattern" onChange={typeChanged} value="beacon" checked={pattern === 'beacon'} />
-          <label htmlFor="beacon" selected>
+          <label htmlFor="beacon">
             Beacon
           </label>
         </div>
         <div>
           <input type="Radio" id="pulsar" name="pattern" onChange={typeChanged} value="pulsar" checked={pattern === 'pulsar'} />
-          <label htmlFor="pulsar" selected>
+          <label htmlFor="pulsar">
             Pulsar
           </label>
         </div>
         <div>
           <input type="Radio" id="acorn" name="pattern" onChange={typeChanged} value="acorn" checked={pattern === 'acorn'} />
-          <label htmlFor="acorn" selected>
+          <label htmlFor="acorn">
             Acorn
           </label>
         </div>
         <div>
           <input type="Radio" id="diehard" name="pattern" onChange={typeChanged} value="diehard" checked={pattern === 'diehard'} />
-          <label htmlFor="diehard" selected>
+          <label htmlFor="diehard">
             Diehard
           </label>
         </div>
