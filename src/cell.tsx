@@ -1,4 +1,4 @@
-import type { Cell as CellType } from './gridsetup';
+import type { Cell as CellType } from './setup/gridsetup';
 
 type Props = {
   cell: CellType;

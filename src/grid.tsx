@@ -1,5 +1,5 @@
 import Cell from './cell';
-import type { Cell as CellType } from './gridsetup';
+import type { Cell as CellType } from './setup/gridsetup';
 
 type Dimensions = {
   width: number;

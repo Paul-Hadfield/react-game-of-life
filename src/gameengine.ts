@@ -1,4 +1,4 @@
-import GridSetup, { Cell } from './gridsetup';
+import GridSetup, { Cell } from './setup/gridsetup';
 
 const applyRules = (isLive: boolean, liveNeighbours: number): boolean => {
   if (isLive) {

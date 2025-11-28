@@ -3,7 +3,7 @@ import './App.css';
 import GameEngine from './gameengine';
 import Grid from './grid';
 import Options from './options';
-import type { Cell } from './gridsetup';
+import type { Cell } from './setup/gridsetup';
 
 type Pattern = 'blinker' | 'beacon' | 'toad' | 'pulsar' | 'acorn' | 'diehard' | 'random';
 
