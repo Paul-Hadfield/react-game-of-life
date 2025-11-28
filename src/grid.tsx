@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Cell } from './cell';
 import type { Cell as CellType } from './setup/gridsetup';
 
@@ -14,21 +15,28 @@ type Props = {
 };
 
 export const Grid = ({ dimensions, gameGrid }: Props) => {
-  const cellSize = Math.floor(
-    Math.min(
-      ...[
-        ((dimensions.width - 100) * 0.8) / dimensions.cols,
-        (dimensions.height * 0.8) / dimensions.rows,
-        200,
-      ],
-    ),
-  );
+  const { width, height, cols, rows } = dimensions;
 
-  const styles = {
-    width: `${dimensions.cols * cellSize}px`,
-    gridTemplateColumns: `repeat(${dimensions.cols}, ${cellSize}px)`,
-    gridTemplateRows: `repeat(${dimensions.rows}, ${cellSize}px)`,
-  };
+  const cellSize = useMemo(() => {
+    return Math.floor(
+      Math.min(
+        ...[
+          ((width - 100) * 0.8) / cols,
+          (height * 0.8) / rows,
+          200,
+        ],
+      ),
+    );
+  }, [width, height, cols, rows]);
+
+  const styles = useMemo(
+    () => ({
+      width: `${cols * cellSize}px`,
+      gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,
+      gridTemplateRows: `repeat(${rows}, ${cellSize}px)`,
+    }),
+    [cols, rows, cellSize],
+  );
 
   return (
     <div className="grid" style={styles}>
