@@ -7,7 +7,7 @@ module.exports = {
     mode: 'production',
     target: 'web',
     devtool: 'cheap-module-source-map',
-    entry: './src/index',
+    entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, "build"),
         publicPath: '/',
@@ -29,12 +29,12 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: ["babel-loader"]
             },
