@@ -5,5 +5,6 @@ type Props = {
 };
 
 export const Cell = ({ cell }: Props) => {
-  return <div className="cell" style={{ backgroundColor: cell.live ? 'black' : 'white' }}></div>;
+  const stateClass = cell.live ? 'liveCell' : 'deadCell';
+  return <div className={`cell ${stateClass}`}></div>;
 };
