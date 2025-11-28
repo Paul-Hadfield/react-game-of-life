@@ -32,8 +32,8 @@ export const Grid = ({ dimensions, gameGrid }: Props) => {
 
   return (
     <div className="grid" style={styles}>
-      {gameGrid.map((cell, index) => (
-        <Cell key={index} cell={cell} />
+      {gameGrid.map((cell) => (
+        <Cell key={`${cell.x}-${cell.y}`} cell={cell} />
       ))}
     </div>
   );
