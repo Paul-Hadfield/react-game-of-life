@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -15,12 +14,13 @@ module.exports = {
         filename: 'bundle.js'
     },
     devServer: {
-        stats: 'minimal',
-        overlay: true,
+        client: {
+            overlay: true
+        },
         historyApiFallback: true,
-        disableHostCheck: true,
-        headers: {"Access-Control-Allow-Orgin": "*"},
-        https: false
+        allowedHosts: 'all',
+        headers: {"Access-Control-Allow-Origin": "*"},
+        static: path.resolve(__dirname, "public")
     },
     plugins:[
         new HtmlWebpackPlugin({
@@ -28,12 +28,15 @@ module.exports = {
             favicon: "public/favicon.ico"
         })
     ],
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: ["babel-loader", "eslint-loader"]
+                use: ["babel-loader"]
             },
             {
                 test: /(\.css)$/,
